@@ -16,16 +16,7 @@ import IdView from "../views/IdView";
 import IsbnView from "../views/IsbnView";
 import SearchView from "../views/SearchView";
 import TitleView from "../views/TitleView";
-
-export type FunctionType = "search" | "title" | "id" | "author" | "isbn";
-
-export const functionType: FunctionType[] = [
-  "search",
-  "title",
-  "id",
-  "author",
-  "isbn",
-];
+import { functionType } from "../constants";
 
 export default function Home() {
   return (
