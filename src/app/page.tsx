@@ -1,95 +1,110 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { CodeHighlight } from "@mantine/code-highlight";
+import {
+  Anchor,
+  Center,
+  Divider,
+  Group,
+  Stack,
+  Tabs,
+  TabsList,
+  TabsPanel,
+  TabsTab,
+  Text,
+} from "@mantine/core";
+import AuthorView from "../views/AuthorView";
+import IdView from "../views/IdView";
+import IsbnView from "../views/IsbnView";
+import SearchView from "../views/SearchView";
+import TitleView from "../views/TitleView";
+
+export type FunctionType = "search" | "title" | "id" | "author" | "isbn";
+
+export const functionType: FunctionType[] = [
+  "search",
+  "title",
+  "id",
+  "author",
+  "isbn",
+];
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <Center h="100vh">
+      <Stack w={600}>
+        {/* 1 */}
+        <Group justify="space-between" align="center">
+          <Stack gap={0}>
+            <Text size="lg" fw={500}>
+              @chewhx/google-books
+            </Text>
+            <Text size="xs">
+              Javascript Wrapper to search for books on Google Books API
+            </Text>
+          </Stack>
+          <Group>
+            <Anchor
+              href="https://github.com/chewhx/google-books"
+              target="_blank"
+              referrerPolicy="no-referrer"
+              size="sm"
+              td="underline"
+            >
+              GitHub
+            </Anchor>
+            <Anchor
+              href="https://www.npmjs.com/package/@chewhx/google-books"
+              target="_blank"
+              referrerPolicy="no-referrer"
+              size="sm"
+              td="underline"
+            >
+              NPM
+            </Anchor>
+          </Group>
+        </Group>
+        {/* 2 */}
+        <CodeHighlight
+          style={{ borderRadius: 10 }}
+          styles={{
+            copy: {
+              position: "absolute",
+              marginTop: 3,
+            },
+          }}
+          language="shell"
+          code={`npm install @chewhx/google-books`}
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <Divider my="xs" />
+        {/* 3 */}
+        <Tabs variant="pills" defaultValue="search">
+          <TabsList
+            style={{
+              fontFamily: "monospace",
+            }}
+          >
+            {functionType.map((e) => (
+              <TabsTab style={{ fontSize: "12px" }} key={e} value={e}>
+                {e}
+              </TabsTab>
+            ))}
+          </TabsList>
+          <TabsPanel value="search">
+            <SearchView />
+          </TabsPanel>
+          <TabsPanel value="title">
+            <TitleView />
+          </TabsPanel>
+          <TabsPanel value="id">
+            <IdView />
+          </TabsPanel>
+          <TabsPanel value="author">
+            <AuthorView />
+          </TabsPanel>
+          <TabsPanel value="isbn">
+            <IsbnView />
+          </TabsPanel>
+        </Tabs>
+      </Stack>
+    </Center>
   );
 }
